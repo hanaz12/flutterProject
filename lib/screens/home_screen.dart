@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../main.dart';
 
 class HomeScreen extends StatefulWidget {
-  final VoidCallback toggleTheme;
-
-  const HomeScreen({Key? key, required this.toggleTheme}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -15,23 +14,69 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future<void> _startQuiz() async {
-    if (_formKey.currentState!.validate()) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('username', _nameController.text.trim());
+    final name = _nameController.text.trim();
 
-      Navigator.pushNamed(context, '/quiz');
+    if (name.isEmpty) {
+      _showErrorDialog('Please enter your name');
+      return;
     }
+
+    final isValidName = RegExp(r'^[a-zA-Z\s]+$').hasMatch(name);
+
+    if (!isValidName) {
+      _showErrorDialog('Name should contain letters only');
+      return;
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', name);
+    Navigator.pushNamed(context, '/quiz');
+  }
+
+  void _showErrorDialog(String message) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        title: Text(
+          'Invalid Name',
+          style: TextStyle(color: theme.colorScheme.primary),
+        ),
+        content: Text(
+          message,
+          style: theme.textTheme.bodyMedium,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(
+              'OK',
+              style: TextStyle(color: theme.colorScheme.primary),
+            ),
+          ),
+        ],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Welcome to the Quiz'),
+        title: const Text('Welcome, with our best wishes'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.brightness_6),
-            onPressed: widget.toggleTheme,
+            icon: Icon(isDark ? Icons.wb_sunny : Icons.nightlight_round),
+            onPressed: toggleTheme,
           ),
         ],
       ),
@@ -43,31 +88,39 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
+                Text(
                   'Enter your name to start',
-                  style: TextStyle(fontSize: 20),
+                  style: theme.textTheme.bodyLarge!.copyWith(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: _nameController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Your Name',
+                  decoration: InputDecoration(
+                    hintText: 'Your Name',
+                    filled: true,
+                    fillColor: isDark ? Colors.white12 : Colors.grey[100],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Please enter your name';
-                    }
-                    return null;
-                  },
                 ),
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: _startQuiz,
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
                   ),
-                  child: const Text('Start Quiz'),
+                  child: const Text(
+                    'Start Quiz',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),

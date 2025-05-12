@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../main.dart';
 
 class ScoreScreen extends StatefulWidget {
   const ScoreScreen({Key? key}) : super(key: key);
@@ -30,11 +31,30 @@ class _ScoreScreenState extends State<ScoreScreen> {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
   }
 
+  String _getFeedbackMessage() {
+    if (_score <= 3) return 'Keep trying';
+    if (_score <= 6) return 'Good effort';
+    if (_score <= 9) return 'Great job';
+    return 'Excellent!';
+  }
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true, // ← لتوسيط العنوان
+        leading: Container(), // ← لإخفاء سهم الرجوع
         title: const Text('Your Result'),
+        actions: [
+          IconButton(
+            icon: Icon(isDark ? Icons.wb_sunny : Icons.nightlight_round),
+            onPressed: toggleTheme,
+          ),
+        ],
       ),
       body: Center(
         child: Padding(
@@ -43,24 +63,38 @@ class _ScoreScreenState extends State<ScoreScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Great job, $_username!',
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                '${_getFeedbackMessage()}, $_username!',
+                style: theme.textTheme.bodyLarge!.copyWith(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 30),
               Text(
                 'You scored:',
-                style: const TextStyle(fontSize: 20),
+                style: theme.textTheme.bodyLarge!.copyWith(
+                  fontSize: 20,
+                ),
               ),
               const SizedBox(height: 10),
               Text(
                 '$_score / 10',
-                style: const TextStyle(fontSize: 36, color: Colors.deepPurple),
+                style: TextStyle(
+                  fontSize: 36,
+                  color: colorScheme.primary,
+                ),
               ),
               const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: _tryAgain,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                  backgroundColor: colorScheme.primary,
+                  foregroundColor: colorScheme.onPrimary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
                 child: const Text('Try Again'),
               ),
