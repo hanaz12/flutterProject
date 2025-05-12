@@ -170,7 +170,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 ),
               );
             }),
-            const SizedBox(height: 20), // ← بدل Spacer()
+            const SizedBox(height: 20), 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

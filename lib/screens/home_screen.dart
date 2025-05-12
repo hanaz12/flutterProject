@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('username', name);
-    Navigator.pushNamed(context, '/quiz');
+    Navigator.pushNamed(context, '/countdown'); 
   }
 
   void _showErrorDialog(String message) {
@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Welcome, with our best wishes'),
+        title: const Text('Quiz Time'),
         actions: [
           IconButton(
             icon: Icon(isDark ? Icons.wb_sunny : Icons.nightlight_round),

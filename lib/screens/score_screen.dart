@@ -46,8 +46,8 @@ class _ScoreScreenState extends State<ScoreScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true, // ← لتوسيط العنوان
-        leading: Container(), // ← لإخفاء سهم الرجوع
+        centerTitle: true, 
+        leading: Container(), 
         title: const Text('Your Result'),
         actions: [
           IconButton(
