@@ -28,7 +28,7 @@ final ThemeData lightTheme = ThemeData(
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   scaffoldBackgroundColor: Colors.black,
-  primaryColor: Colors.purple[300]!, // استخدمنا ! هنا كمان
+  primaryColor: Colors.purple[300]!, 
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.black,
     foregroundColor: Colors.purple[300]!,
