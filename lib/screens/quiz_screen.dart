@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
 
 class QuizScreen extends StatefulWidget {
-  const QuizScreen({Key? key}) : super(key: key);
+  const QuizScreen({super.key});
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -12,7 +12,7 @@ class QuizScreen extends StatefulWidget {
 
 class _QuizScreenState extends State<QuizScreen> {
   int _currentQuestionIndex = 0;
-  List<int?> _selectedAnswers = List.filled(questions.length, null);
+  final List<int?> _selectedAnswers = List.filled(questions.length, null);
   List<bool> _isHovering = List.filled(4, false);
 
   void _selectAnswer(int index) {
@@ -65,7 +65,13 @@ class _QuizScreenState extends State<QuizScreen> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('score', score);
 
-    Navigator.pushNamed(context, '/score');
+    // Pass user answers to ScoreScreen
+    Navigator.pushNamed(
+      // ignore: use_build_context_synchronously
+      context,
+      '/score',
+      arguments: _selectedAnswers,
+    );
   }
 
   @override
@@ -85,8 +91,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
     return Scaffold(
       appBar: AppBar(
-       leading: Container(),
-
+        leading: Container(),
         title: const Text('Quiz Time'),
         actions: [
           IconButton(
@@ -170,7 +175,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 ),
               );
             }),
-            const SizedBox(height: 20), 
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

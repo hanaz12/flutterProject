@@ -1,102 +1,12 @@
-// // import 'package:flutter/material.dart';
-
-// // final ThemeData lightTheme = ThemeData(
-// //   brightness: Brightness.light,
-// //   scaffoldBackgroundColor: Colors.white,
-// //   primaryColor: Colors.deepPurple,
-// //   appBarTheme: const AppBarTheme(
-// //     backgroundColor: Colors.white,
-// //     foregroundColor: Colors.deepPurple,
-// //     elevation: 0,
-// //   ),
-// //   textTheme: const TextTheme(
-// //     bodyLarge: TextStyle(color: Colors.deepPurple),
-// //     bodyMedium: TextStyle(color: Colors.deepPurple),
-// //   ),
-// //   colorScheme: const ColorScheme.light(
-// //     primary: Colors.deepPurple,
-// //     onPrimary: Colors.white,
-// //   ),
-// // );
-
-// // final ThemeData darkTheme = ThemeData(
-// //   brightness: Brightness.dark,
-// //   scaffoldBackgroundColor: Colors.deepPurple,
-// //   primaryColor: Colors.white,
-// //   appBarTheme: const AppBarTheme(
-// //     backgroundColor: Colors.deepPurple,
-// //     foregroundColor: Colors.white,
-// //     elevation: 0,
-// //   ),
-// //   textTheme: const TextTheme(
-// //     bodyLarge: TextStyle(color: Colors.white),
-// //     bodyMedium: TextStyle(color: Colors.white),
-// //   ),
-// //   colorScheme: const ColorScheme.dark(
-// //     primary: Colors.white,
-// //     onPrimary: Colors.deepPurple,
-// //   ),
-// // );
-// import 'package:flutter/material.dart';
-
-// final ThemeData lightTheme = ThemeData(
-//   brightness: Brightness.light,
-//   scaffoldBackgroundColor: Colors.white,
-//   primaryColor: Colors.deepPurple,
-//   appBarTheme: const AppBarTheme(
-//     backgroundColor: Colors.white,
-//     foregroundColor: Colors.deepPurple,
-//     elevation: 0,
-//   ),
-//   textTheme: const TextTheme(
-//     bodyLarge: TextStyle(color: Colors.deepPurple),
-//     bodyMedium: TextStyle(color: Colors.deepPurple),
-//   ),
-//   colorScheme: const ColorScheme.light(
-//     primary: Colors.deepPurple,
-//     onPrimary: Colors.white,
-//   ),
-//   elevatedButtonTheme: ElevatedButtonThemeData(
-//     style: ElevatedButton.styleFrom(
-//       backgroundColor: Colors.deepPurple,
-//       foregroundColor: Colors.white,
-//     ),
-//   ),
-// );
-
-// final ThemeData darkTheme = ThemeData(
-//   brightness: Brightness.dark,
-//   scaffoldBackgroundColor: Colors.deepPurple,
-//   primaryColor: Colors.white,
-//   appBarTheme: const AppBarTheme(
-//     backgroundColor: Colors.deepPurple,
-//     foregroundColor: Colors.white,
-//     elevation: 0,
-//   ),
-//   textTheme: const TextTheme(
-//     bodyLarge: TextStyle(color: Colors.white),
-//     bodyMedium: TextStyle(color: Colors.white),
-//   ),
-//   colorScheme: const ColorScheme.dark(
-//     primary: Colors.white,
-//     onPrimary: Colors.deepPurple,
-//   ),
-//   elevatedButtonTheme: ElevatedButtonThemeData(
-//     style: ElevatedButton.styleFrom(
-//       backgroundColor: Colors.white,
-//       foregroundColor: Colors.deepPurple,
-//     ),
-//   ),
-// );
 import 'package:flutter/material.dart';
 
 final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   scaffoldBackgroundColor: Colors.white,
-  primaryColor: Colors.purple[300]!, // استخدمنا ! عشان نأكد إن القيمة مش null
+  primaryColor: Colors.purple[300]!,
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.white,
-    foregroundColor: const Color.fromARGB(255, 186, 104, 200)!,
+    foregroundColor: const Color.fromARGB(255, 186, 104, 200),
     elevation: 0,
   ),
   textTheme: TextTheme(

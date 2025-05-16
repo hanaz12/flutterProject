@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../main.dart'; 
 
 class CountdownScreen extends StatefulWidget {
-  const CountdownScreen({Key? key}) : super(key: key);
+  const CountdownScreen({super.key});
 
   @override
   State<CountdownScreen> createState() => _CountdownScreenState();

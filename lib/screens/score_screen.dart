@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
+import 'results_screen.dart';
 
 class ScoreScreen extends StatefulWidget {
-  const ScoreScreen({Key? key}) : super(key: key);
+  final List<int?>? userAnswers; // Added to receive user answers
+
+  const ScoreScreen({super.key, this.userAnswers});
 
   @override
   State<ScoreScreen> createState() => _ScoreScreenState();
@@ -27,8 +30,13 @@ class _ScoreScreenState extends State<ScoreScreen> {
     });
   }
 
-  void _tryAgain() {
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+  void _viewResults() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ResultsScreen(userAnswers: widget.userAnswers ?? []),
+      ),
+    );
   }
 
   String _getFeedbackMessage() {
@@ -46,8 +54,8 @@ class _ScoreScreenState extends State<ScoreScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true, 
-        leading: Container(), 
+        centerTitle: true,
+        leading: Container(),
         title: const Text('Your Result'),
         actions: [
           IconButton(
@@ -56,6 +64,8 @@ class _ScoreScreenState extends State<ScoreScreen> {
           ),
         ],
       ),
+     
+
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -87,7 +97,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
               ),
               const SizedBox(height: 40),
               ElevatedButton(
-                onPressed: _tryAgain,
+                onPressed: _viewResults,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
                   backgroundColor: colorScheme.primary,
@@ -96,7 +106,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: const Text('Try Again'),
+                child: const Text('View Result'),
               ),
             ],
           ),
